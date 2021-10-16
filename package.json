@@ -2,9 +2,15 @@
   "name": "summoner",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "client": "cd client && npm run start",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -13,12 +19,18 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^6.3.0",
+    "nodemon": "^2.0.13"
+  },
   "bugs": {
     "url": "https://github.com/dangerousd214/summoner/issues"
   },
   "homepage": "https://github.com/dangerousd214/summoner#readme",
   "dependencies": {
+    "codemon": "^0.1.31-development",
     "express": "^4.17.1",
+    "if-env": "^1.0.4",
     "path": "^0.12.7"
   }
 }
